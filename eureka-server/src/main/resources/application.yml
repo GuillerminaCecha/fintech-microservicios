@@ -1,0 +1,7 @@
+# Solo el nombre y dónde buscar la configuración.
+# El puerto y el resto viven en config-repo/eureka-server.yml
+spring:
+  application:
+    name: eureka-server
+  config:
+    import: "configserver:http://localhost:8888"

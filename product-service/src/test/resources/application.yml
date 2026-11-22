@@ -1,0 +1,20 @@
+# Configuración SOLO para tests: H2 en memoria, sin Config Server ni Eureka.
+# Así los tests corren en cualquier máquina (y en CI) sin MySQL.
+spring:
+  application:
+    name: product-service
+  cloud:
+    config:
+      enabled: false
+  datasource:
+    url: jdbc:h2:mem:productdb;MODE=MySQL;DB_CLOSE_DELAY=-1
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+
+eureka:
+  client:
+    enabled: false

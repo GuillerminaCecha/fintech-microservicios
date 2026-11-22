@@ -1,0 +1,19 @@
+# Configuración SOLO para tests: H2 en memoria, sin Config Server ni Eureka.
+spring:
+  application:
+    name: customer-service
+  cloud:
+    config:
+      enabled: false
+  datasource:
+    url: jdbc:h2:mem:customerdb;MODE=MySQL;DB_CLOSE_DELAY=-1
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+
+eureka:
+  client:
+    enabled: false
