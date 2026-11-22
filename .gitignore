@@ -1,0 +1,20 @@
+# Maven
+target/
+.mvn/wrapper/maven-wrapper.jar
+
+# Secretos y entorno local (nunca se suben)
+.env
+*.env
+
+# IDEs
+.idea/
+*.iml
+.vscode/
+.classpath
+.project
+.settings/
+
+# Sistema operativo
+.DS_Store
+HELP.md
+logs/
