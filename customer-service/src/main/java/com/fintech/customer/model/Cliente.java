@@ -28,6 +28,11 @@ public class Cliente {
     @Column(nullable = false, precision = 15, scale = 2)
     private BigDecimal saldo = BigDecimal.ZERO;
 
+    // Bloqueo optimista: si dos operaciones modifican el saldo a la vez,
+    // la segunda falla en lugar de pisar a la primera (sugerencia de Copilot)
+    @Version
+    private Long version;
+
     @Column(nullable = false, updatable = false)
     private LocalDateTime fechaAlta;
 
@@ -65,6 +70,8 @@ public class Cliente {
     public void setEmail(String email) { this.email = email; }
     public BigDecimal getSaldo() { return saldo; }
     public void setSaldo(BigDecimal saldo) { this.saldo = saldo; }
+    public Long getVersion() { return version; }
+    public void setVersion(Long version) { this.version = version; }
     public LocalDateTime getFechaAlta() { return fechaAlta; }
     public void setFechaAlta(LocalDateTime fechaAlta) { this.fechaAlta = fechaAlta; }
 }

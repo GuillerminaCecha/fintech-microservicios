@@ -114,6 +114,26 @@ cd customer-service && ./mvnw spring-boot:run
 
 Los tests usan **H2 en memoria** (`src/test/resources/application.yml`), con Config Server y Eureka deshabilitados: corren en cualquier máquina sin MySQL.
 
+| Clase | Qué prueba |
+|---|---|
+| `ClienteServiceTest` | Alta, duplicados (409), saldo insuficiente, que el PUT no modifique el saldo y la comunicación con product-service (Feign mockeado con Mockito) |
+| `ProductoServiceTest` | Alta, duplicados, actualización y eliminación de productos |
+| `ClienteRepositoryTest` / `ProductoRepositoryTest` | Consultas derivadas de Spring Data contra H2 |
+| `*ApplicationTests` | Que el contexto de Spring levante |
+
+## Revisión de código con IA
+
+Se solicitó una revisión del Pull Request a **GitHub Copilot**. Sugerencias aplicadas:
+
+| Sugerencia de Copilot | Cambio realizado |
+|---|---|
+| El script de arranque consultaba `/actuator` sin tener Actuator | Se agregó `spring-boot-starter-actuator` a los 4 proyectos y el script verifica `/actuator/health` = `UP` |
+| Los tests solo verificaban que levante el contexto | Tests unitarios de servicios (Mockito) y de repositorios (H2) |
+| Depósitos y extracciones concurrentes podían pisarse | Bloqueo optimista con `@Version` en `Cliente`; un conflicto responde 409 |
+| El Config Server lee la rama `main`, que no tenía la configuración mientras el PR estaba abierto | Se mergeó el PR a `main`; para desarrollo local existe el perfil `native` |
+
+Sugerencia evaluada y no aplicada: reemplazar los scripts por **Docker Compose**. Queda como mejora futura, fuera del alcance de la consigna.
+
 ---
 
 ## Endpoints

@@ -21,6 +21,11 @@
     </properties>
 
     <dependencies>
+        <!-- Health checks: /actuator/health (sugerencia de la revisión de Copilot) -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-config-server</artifactId>

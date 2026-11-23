@@ -14,3 +14,9 @@ spring:
           search-paths: config-repo      # carpeta del repo donde están los .yml
           default-label: main            # rama
           clone-on-start: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info

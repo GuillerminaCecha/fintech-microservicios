@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -29,6 +30,13 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(SaldoInsuficienteException.class)
     public ResponseEntity<ErrorRespuesta> saldoInsuficiente(SaldoInsuficienteException ex) {
         return respuesta(HttpStatus.valueOf(422), ex.getMessage());
+    }
+
+    // Dos operaciones modificaron el mismo cliente al mismo tiempo (bloqueo optimista)
+    @ExceptionHandler(ObjectOptimisticLockingFailureException.class)
+    public ResponseEntity<ErrorRespuesta> conflictoConcurrente(ObjectOptimisticLockingFailureException ex) {
+        return respuesta(HttpStatus.CONFLICT,
+                "El cliente fue modificado por otra operación al mismo tiempo. Reintentá");
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

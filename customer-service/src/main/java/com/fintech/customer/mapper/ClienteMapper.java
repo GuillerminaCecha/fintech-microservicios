@@ -13,6 +13,7 @@ import org.mapstruct.MappingTarget;
 public interface ClienteMapper {
 
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "version", ignore = true)
     @Mapping(target = "fechaAlta", ignore = true)
     Cliente toEntity(ClienteRequest request);
 
@@ -23,6 +24,7 @@ public interface ClienteMapper {
     // El saldo se ignora explícitamente: no se modifica en una actualización
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "saldo", ignore = true)
+    @Mapping(target = "version", ignore = true)
     @Mapping(target = "fechaAlta", ignore = true)
     void actualizarEntidad(ClienteUpdateRequest request, @MappingTarget Cliente cliente);
 }

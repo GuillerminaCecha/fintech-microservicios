@@ -16,7 +16,7 @@ PERFIL_CONFIG=""
 esperar() {  # espera a que un puerto responda
   echo -n "   esperando $1 en el puerto $2"
   for i in $(seq 1 90); do
-    if curl -s -o /dev/null "http://localhost:$2/actuator" || nc -z localhost $2 2>/dev/null; then echo " ✅"; return 0; fi
+    if curl -sf "http://localhost:$2/actuator/health" | grep -q "\"status\":\"UP\""; then echo " ✅"; return 0; fi
     echo -n "."; sleep 2
   done
   echo " ❌ no arrancó: revisá logs/$1.log"; exit 1
