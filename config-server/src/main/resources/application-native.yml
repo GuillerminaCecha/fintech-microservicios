@@ -1,0 +1,9 @@
+# Perfil "native": lee la configuración desde la carpeta local config-repo,
+# sin pasar por GitHub. Útil para desarrollar antes de hacer push.
+# Uso: ./mvnw spring-boot:run -Dspring-boot.run.profiles=native
+spring:
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: file:../config-repo

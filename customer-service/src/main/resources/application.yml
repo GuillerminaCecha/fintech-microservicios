@@ -1,0 +1,7 @@
+# Solo el nombre y dónde buscar la configuración.
+# Puerto, base de datos y Eureka viven en config-repo/customer-service.yml
+spring:
+  application:
+    name: customer-service
+  config:
+    import: "configserver:http://localhost:8888"

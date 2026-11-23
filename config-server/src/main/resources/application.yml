@@ -1,0 +1,22 @@
+# La configuración del Config Server es la única que vive en el propio proyecto:
+# es quien les entrega la configuración a todos los demás.
+server:
+  port: 8888
+
+spring:
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/GuillerminaCecha/fintech-microservicios
+          search-paths: config-repo      # carpeta del repo donde están los .yml
+          default-label: main            # rama
+          clone-on-start: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
